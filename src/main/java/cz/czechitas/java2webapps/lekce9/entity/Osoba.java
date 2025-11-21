@@ -19,7 +19,7 @@ public class Osoba {
 
     private LocalDate datumNarozeni;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false) // bez toho by nefungovala databáze
     private Adresa adresa;
 
     public Long getId() {

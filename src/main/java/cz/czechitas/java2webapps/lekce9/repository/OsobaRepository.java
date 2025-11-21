@@ -23,6 +23,7 @@ public interface OsobaRepository extends JpaRepository<Osoba, Long> {
     @Query("SELECT o FROM Osoba o JOIN o.adresa a WHERE a.obec = ?1")
     Page<Osoba> findByObec(String obec, Pageable pageable);
 
+
     /**
      * Vyhledá všechny osoby s adresou v dané obci.
      * <p>
@@ -38,11 +39,19 @@ public interface OsobaRepository extends JpaRepository<Osoba, Long> {
     /**
      * Vyhledá všechny osoby, jejichž příjmení začíná na uvedený text.
      */
-    Page<Osoba> findByPrijmeniStartingWithIgnoreCase(String prijmeni, Pageable pageable);
+    Page<Osoba> findByPrijmeniStartingWithIgnoreCaseOrderByPrijmeni(String prijmeni, Pageable pageable);
 
     /**
      * Vyhledá všechny osoby, které se narodily v rozmezí zadaných let.
      */
     @Query("SELECT o FROM Osoba o WHERE YEAR(o.datumNarozeni) BETWEEN :pocatecniRok AND :koncovyRok")
     Page<Osoba> findByRok(@Param("pocatecniRok") int pocatecniRok, @Param("koncovyRok") int koncovyRok, Pageable pageable);
+
+
+    Page<Osoba> findByPrijmeniEqualsIgnoreCaseAndJmenoContainsOrderByPrijmeniAscJmenoAscDatumNarozeniDesc(String prijmeni, String jmeno, Pageable pageable);
+
+    Page<Osoba> findByPrijmeniEqualsIgnoreCaseAndJmenoContainsOrderByPrijmeni(String prijmeni, String jmeno);
+
+    Page<Osoba> findByPrijmeniStartingWithIgnoreCaseOrderByPrijmeniAscJmenoAscDatumNarozeniDesc(String prijmeni);
+    
 }

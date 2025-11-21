@@ -38,8 +38,8 @@
     <div class="pager">
         [@pagerLink page=0 active=false text="⇤" /]
         [@pagerLink page=osoby.number - 1 active=osoby.first text="←" /]
-        [#list (0..!osoby.totalPages) as pageNumber]
-            [@pagerLink page=pageNumber active=pageNumber==osoby.number text=pageNumber + 1 /]
+        [#list (0..!osoby.totalPages) as pageNumber]                                       [#-- toto říká, že jsou čísla číslovaná od 0 až po číslo které je vypočítané--]
+            [@pagerLink page=pageNumber active=pageNumber==osoby.number text=pageNumber + 1 /] [#-- zobrazuji uzivateli 1, ale v radku vyhledavace to jede od 0 --]
         [/#list]
         [@pagerLink page=osoby.number + 1 active=osoby.last text="→" /]
         [@pagerLink page=osoby.totalPages - 1 active=false text="⇥" /]

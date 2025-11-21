@@ -21,16 +21,26 @@ public class OsobaService {
     }
 
     /**
-     * Vrací stránkovaný seznam všech osob v databázi seřazených podle příjmení a jména.
+     * Vrací stránkovaný seznam všech osob v databázi seřazených podle příjmení a jména,  a datanarozeni.
      */
-    public Page<Osoba> seznamOsob(Pageable pageable) {
-        return osobaRepository.findAll(pageable);
+    public Page<Osoba> seznamOsob( Pageable pageable) {
+
+        return osobaRepository.findByPrijmeniEqualsIgnoreCaseAndJmenoContainsOrderByPrijmeniAscJmenoAscDatumNarozeniDesc ("","", pageable) ;
     }
+
+    /**
+     * Vrací stránkovaný seznam všech osob v databázi seřazených podle příjmení .
+     */
+    public Page<Osoba> seznamOsobDlePrijmeni(String zacatekPrijmeni, Pageable pageable) {
+        return osobaRepository.findByPrijmeniStartingWithIgnoreCaseOrderByPrijmeni(zacatekPrijmeni, pageable); // startingwithignorecase udela, ze neresi velikost pismen a najde to
+    }
+
 
     /**
      * Vrací stránkovaný seznam všech osob v databázi, které se narodili mezi uvedenými roky.
      */
     public Page<Osoba> seznamDleRokuNarozeni(RokNarozeniForm form, Pageable pageable) {
-        return osobaRepository.findByRok(form.getOd(), form.getDo(), pageable);
+      //  return osobaRepository.findByPrijmeniEqualsIgnoreCaseAndJmenoContainsOrderByPrijmeni(zacatekPrijmeni, "k", pagaeble);
+         return osobaRepository.findByRok(form.getOd(), form.getDo(), pageable);
     }
 }
